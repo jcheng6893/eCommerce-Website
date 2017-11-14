@@ -1,0 +1,117 @@
+<!doctype HTML>
+<html> 
+    <head>
+        <title>  </title>
+        <style>
+            img{
+                width:250px;
+                height:175px;
+            }
+            input{
+                background-color:lightcyan;
+            }
+            div{
+                background-color:lightblue;
+                color: darkblue;
+                font-size: 150%;
+
+            }
+            h1{
+                background-color:lightblue;
+                font-size: 350%;
+            }
+            body{
+                background-color:lightskyblue;
+            }           
+        </style>
+        <script>
+            var pr1 = 15; var wpr1 = 7;
+            var pr2 = 15; var wpr2 = 7;
+            var pr3 = 15; var wpr3 = 7;
+            function initPrices(){
+                document.getElementById("span1").innerHTML = "price: $ "+pr1;
+                document.getElementById("span2").innerHTML = "price: $ "+pr2;
+                document.getElementById("span3").innerHTML = "price: $ "+pr3;
+            }
+            function ProcessOrder(){
+                var q1=parseInt(document.getElementById("qty1").value);
+                var q2=parseInt(document.getElementById("qty2").value);
+                var q3=parseInt(document.getElementById("qty3").value);
+                var tc=(pr1 *q1)+(pr2 *q2)+(pr3 *q3);
+                var tax = tc * 0.0875;
+                var shipping = 0 ;
+                var subtotal = tc + tax;
+                if (tc<100 ){
+                    shipping = 25;
+                }else if (tc>=100 && tc <=200){
+                    shipping = 15;
+                }else if (tc>200){
+                    shipping = 0;
+                }
+                var itemsold=q1+q2+q3;
+                var companysubtotal = (q1 *wpr1)+(q2 *wpr2)+(q3 *wpr3);
+                var profit =tc-companysubtotal-shipping;
+                var build = "";
+                build +="<div>";
+                build += "Subtotal :               $" + tc.toFixed(2) +"<br>";
+                build += "Tax :                    $" + tax.toFixed(2) +"<br>";
+                build += "Shipping & Handling :    $" + shipping.toFixed(2)+"<br>";
+                build += "Customer Total :         $" + (subtotal+shipping).toFixed(2)+"<br>";
+                build += "</div><br><br>";
+                build +="<div>";
+                build += "Total Items sold  :       " + itemsold.toFixed(0) +"<br>";
+                build += "Customer Subtotal :      $" + tc.toFixed(2) +"<br>";
+                build += "Company Subtotal :       $" + companysubtotal.toFixed(2) +"<br>";
+                build += "Profit/Loss :            $" + profit.toFixed(2) +"<br>";
+                build +="</div>";
+                var output=document.getElementById("output");
+                output.innerHTML = build;
+                
+
+            }
+            
+        </script>
+    </head>
+    <body onload="initPrices()">
+        <h1 style="color:darkorange;">**  PC BROTHER   <img src="pcp.jpg" style="width:128px;height:128px;">   FRIED CHICKEN  **</h1>
+        <div>
+        </div>
+        <hr>
+        <div>
+            <img src="fc1.jpg"><br>
+            <p>Crispy fried chicken</p><br>
+            <span id="span1">Price $15 </span>
+            <input type="text" id="qty1" value="0" placeholder="#">
+            <select>
+                <option value="spicy">spicy</option>
+                <option value="nspicy">not spicy</option>
+            </select>           
+        </div>
+        <hr>
+        <div>
+            <img src="fc2.jpg"><br>
+            <p>BBQ style grilled chicken</p><br>
+            <span id="span2">price $20</span>
+            <input type="text" id="qty2" value="0"  placeholder="#">
+            <select>
+                <option value="s">salty</option>
+                <option value="albs">a little bit salty</option>
+            </select>     
+        </div>
+        <hr>
+        <div>
+            <img src="fc3.jpg"><br>
+            <p>teriyaki fried chicken</p><br>
+            <span id="span3">price $15</span>
+            <input type="text" id="qty3" value="0"  placeholder="#">
+            <select>
+                <option value="nw">normal sweat</option>
+                <option value="albw">a little bit sweat</option>
+            </select>
+        </div>
+        <button onclick="ProcessOrder()">Process Order</button>
+        <br>
+        <div id="output"></div>
+
+    </body>
+</html>
